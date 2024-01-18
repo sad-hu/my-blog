@@ -36,19 +36,6 @@
   {%- endif %}
 {%- endblock comments_init %} #}
 
-{%- block comments_init %}
-  {%- if config.extra.comments.utteranc %}
-<script src="https://utteranc.es/client.js"
-      repo="sad-hu/my-blog-comments"
-      issue-term="pathname"
-      label="评论"
-      theme="gruvbox-dark"
-      crossorigin="anonymous"
-      async>
-</script>
-  {%- endif %}
-{%- endblock comments_init %}
-
 {%- block content %}
     <article>
     {{- macros::title_post(page=page, config=config) }}
@@ -106,6 +93,19 @@
     <hyvor-talk-comments website-id={{ config.extra.comments.hyvor }} page-id={{ page.slug }}{%- if config.extra.comments.hyvorcolor %} colors="{{ config.extra.comments.hyvorcolor }}"{%- endif %}></hyvor-talk-comments>
     {%- endif %}
     {%- endblock comments_body %} #}
+    
+    {%- block comments_body %}
+      {%- if config.extra.comments.utteranc %}
+        <script src="https://utteranc.es/client.js"
+              repo="sad-hu/my-blog-comments"
+              issue-term="pathname"
+              label="评论"
+              theme="gruvbox-dark"
+              crossorigin="anonymous"
+              async>
+        </script>
+      {%- endif %}
+    {%- endblock comments_body %}
     </article>
     {%- block toc %}
     {%- if config.extra.toc | default(value=true) %}
