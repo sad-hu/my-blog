@@ -132,12 +132,12 @@ foothr = true # show or hide horizontal rule above footer
 
 title_separator = "|"  # Separator between title and title_addition, set as |, -, _, etc
 title_addition = "Sadhu's blog" # a default value for title addition
-author = "Jake G" # Put Your Name here
+author = "Sad Hu" # Put Your Name here
 keywords = "Abridge, Abridge.css, Zola, Theme, Zola Theme, getzola, Semantic Html, Fast, lightweight" # used for the primary site index
-banner = "banner.png" # Used as default image for OpenGraph/Twitter if page specific image is undefined.
-twitter_meta = "your-user-name" # for SEO: twitter:site and twitter:creator
-google = "Your Google Site verification code."
-bing = "Your Bing Site verification code."
+# banner = "banner.png" # Used as default image for OpenGraph/Twitter if page specific image is undefined.
+# twitter_meta = "your-user-name" # for SEO: twitter:site and twitter:creator
+# google = "Your Google Site verification code."
+# bing = "Your Bing Site verification code."
 seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twitter
 #dev = false # development mode, if true then robots.txt should prevent search indexing.
 
@@ -148,29 +148,29 @@ seo = true  # enable or disable seo-related meta tags: opengraph, facebook, twit
 ###############################################################################
 
 feed = true # this adds the RSS feed icon in the footer.
-mail = "name@example.com"
-mastodon = "@your-user-name"
-element = "matrix.example.com"
-buymeacoffee = "your-user-name"
-kofi = "your-user-name"
-discord = "your-discord" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
-twitter = "your-user-name"
-facebook = "your-user-name"
-linkedin = "your-user-name"
-gitlab = "your-user-name"
-github = "your-user-name"
-codeberg = "your-user-name" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
-github_sponsor = "your-user-name"
-bitbucket = "your-user-name"
-python = "your-user-name"
-docker = "your-user-name"
-stack = "your-user-name"
-instagram = "your-user-name"
+# mail = "name@example.com"
+# mastodon = "@your-user-name"
+# element = "matrix.example.com"
+# buymeacoffee = "your-user-name"
+# kofi = "your-user-name"
+# discord = "your-discord" # Everything after https://discord.com/   eg: invite/my-server  *or*  servers/my-server-id
+# twitter = "your-user-name"
+# facebook = "your-user-name"
+# linkedin = "your-user-name"
+# gitlab = "your-user-name"
+# github = "your-user-name"
+# codeberg = "your-user-name" # Everything after https://codeberg.org/   eg: username  *or*  username/repository
+# github_sponsor = "your-user-name"
+# bitbucket = "your-user-name"
+# python = "your-user-name"
+# docker = "your-user-name"
+# stack = "your-user-name"
+# instagram = "your-user-name"
 #pixelfed = "@your-user-name" # Heaviest icon, off by default
-pinterest = "your-user-name"
-twitch = "your-user-name"
-youtube = "channel/your-channel-id"
-researchgate = "your-profile-id"
+# pinterest = "your-user-name"
+# twitch = "your-user-name"
+# youtube = "channel/your-channel-id"
+# researchgate = "your-profile-id"
 
 
 ###############################################################################
@@ -180,6 +180,7 @@ researchgate = "your-profile-id"
 
 #comments.hyvor = "9366" # hyvor website id, comment out to disable.
 #comments.hyvorcolor = "os" # set the color property for hyvor
+comments.utteranc = true
 
 
 ###############################################################################
