@@ -1,8 +1,8 @@
 +++
 title = "Mathematical Notation"
 description = "Sample article showcasing the display of Mathematical Notations, made possible by the KaTeX library."
-date = 2021-05-05
-updated = 2022-01-01
+date = 2021-05-05T15:00:00Z
+updated = 2022-01-01T15:00:00Z
 draft = false
 
 [taxonomies]
@@ -97,14 +97,14 @@ Some Mathematics in display mode is fair enough:
 {% katex(block=true) %} \int_0^1 x^2 dx {% end %}
 
 ### Auto Render Inline
-```
+```tex
 $ e^{i\pi}+1=0 $
 ```
 
 $ e^{i\pi}+1=0 $
 
 ### Auto Render Block
-```
+```tex
 $$
 f(x) = \int_{-\infty}^\infty\hat f(\xi)\,e^{2 \pi i \xi x}\,d\xi
 $$

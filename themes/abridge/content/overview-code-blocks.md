@@ -1,7 +1,7 @@
 +++
 title = "Code Blocks Theme"
 description = "Sample article showcasing syntax highlighting and formatting for Code Blocks with a custom theme."
-date = 2022-05-16
+date = 2022-05-16T15:00:00Z
 draft = false
 
 [taxonomies]
@@ -68,7 +68,7 @@ fn main() {
 ```
 
 ### Bash
-```bash
+```bash,hl_lines=5
 #!/bin/bash
 for d in /sys/kernel/iommu_groups/*/devices/*; do
   n=${d#*/iommu_groups/*}; n=${n%%/*}

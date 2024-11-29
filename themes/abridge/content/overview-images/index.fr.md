@@ -1,7 +1,7 @@
 +++
 title = "Codes courts d'image"
 description = "Les images peuvent être intégrées directement à l'aide de markdown `![Ferris](ferris.svg)`, mais l'utilisation d'un shortcode empêche CLS en définissant explicitement la largeur et la hauteur."
-date = 2021-05-19
+date = 2021-05-19T15:00:00Z
 draft = false
 
 [taxonomies]
@@ -18,33 +18,42 @@ Cet article couvre les **shortcodes imgswap et img**. Les images peuvent égalem
 
 # img Shortcode
 
-- src est le chemin et le nom de fichier de l'image. (obligatoire)
-- class définit une classe pour l'image. (facultatif)
-- alt définit la note alt pour l'image.
+- src est le chemin et le nom de fichier de l'image par défaut. (obligatoire)
+- class définit une classe pour l'image.
+- alt définit la note alt de l'image.
+- caption définit le texte de la légende sous l'image.
+- link définit un lien hypertexte pour l'image.
 - w est la largeur de l'image.
 - h est la hauteur de l'image.
+
+Cours optionnels:
+
+- ci peut être utilisé pour centrer l'image.
+- fr peut être utilisé pour faire flotter l'image à droite.
+- fl peut être utilisé pour faire flotter l'image vers la gauche.
+- b1 peut être utilisé pour ajouter une bordure de 1px.
 
 ** google lighthouse recommande de définir les attributs alt, w et h. Si alt est omis, le nom du fichier est utilisé. Si w ou h sont omis alors get_image_metadata() remplit ces valeurs. **
 
 ## Utilisation (même chemin)
 ```rs
-{{/* img(src="ferris-happy.svg" alt="Ferris est heureux") */}}
+{{/* img(src="ferris-happy.svg" class="ci b1" alt="Ferris est heureux" caption="Ferris" link="https://www.rust-lang.org/") */}}
 ```
-**Sortir**
+**Output**
 ```html
-{{ img(src="ferris-happy.svg" alt="Ferris est heureux") }}
+{{ img(src="ferris-happy.svg" class="ci b1" alt="Ferris est heureux" caption="Ferris" link="https://www.rust-lang.org/") }}
 ```
-{{ img(src="ferris-happy.svg" alt="Ferris est heureux") }}
+{{ img(src="ferris-happy.svg" class="ci b1" alt="Ferris est heureux" caption="Ferris" link="https://www.rust-lang.org/") }}
 
 ## Utilisation (chemin relatif ./)
 ```rs
-{{/* img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour") */}}
+{{/* img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour" caption="Ferris" link="https://www.rust-lang.org/") */}}
 ```
-**Sortir**
+**Output**
 ```html
-{{ img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour") }}
+{{ img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour" caption="Ferris" link="https://www.rust-lang.org/") }}
 ```
-{{ img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour") }}
+{{ img(src="./img/ferris-gesture.svg" alt="Ferris dit bonjour" caption="Ferris" link="https://www.rust-lang.org/") }}
 
 ## Utilisation (chemin racine /)
 ```rs
@@ -71,8 +80,10 @@ Lorsque vous passez votre souris sur l'image, l'image à comparer s'affiche.
 
 - main_src est le chemin et le nom de fichier de l'image par défaut. (obligatoire)
 - swap_src est le chemin et le nom de fichier de l'image d'échange. (obligatoire)
-- class définit une classe pour l'image. (facultatif)
+- class définit une classe pour l'image.
 - alt définit la note alt pour l'image.
+- caption définit le texte de la légende sous l'image.
+- link sets a hyperlink for the image.
 - w est la largeur de l'image.
 - h est la hauteur de l'image.
 

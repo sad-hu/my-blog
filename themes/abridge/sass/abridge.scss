@@ -43,34 +43,36 @@ $icon-mail: true !default;// e-mail
 $icon-mastodon: true !default;
 $icon-element: true !default;
 $icon-matrix: false !default;
-$icon-buymeacoffee: true !default;
+$icon-buymeacoffee: false !default;
 $icon-kofi: true !default;
-$icon-twitter: true !default;
-$icon-facebook: true !default;
-$icon-linkedin: true !default;
-$icon-codeberg: true !default;
-$icon-gitlab: true !default;
+$icon-twitter: false !default;
+$icon-facebook: false !default;
+$icon-linkedin: false !default;
+$icon-codeberg: false !default;
+$icon-gitlab: false !default;
 $icon-github: true !default;
-$icon-github-sponsor: true !default;
-$icon-bitbucket: true !default;
-$icon-python: true !default;
-$icon-docker: true !default;
-$icon-stack: true !default;
+$icon-github-sponsor: false !default;
+$icon-bitbucket: false !default;
+$icon-python: false !default;
+$icon-docker: false !default;
+$icon-stack: false !default;
 $icon-instagram: true !default;
 $icon-pixelfed: false !default;//heaviest icon, off by default
-$icon-pinterest: true !default;
-$icon-discord: true !default;
+$icon-pinterest: false !default;
+$icon-discord: false !default;
 $icon-twitch: true !default;
 $icon-youtube: true !default;
-$icon-researchgate: true !default;
+$icon-peertube: false !default;
+$icon-researchgate: false !default;
+$icon-telegram: false !default;
 
 $icon-x: true !default;// x symbol, used to close search results page.
 $icon-search: true !default;//search, spyglass search button in search box.
 $icon-adjust: true !default;//theme switcher dark/light toggle button.
-$icon-angll: true !default;//pagination, goto first page
-$icon-angl: true !default;//pagination, goto previous page
-$icon-angr: true !default;//pagination, goto next page
-$icon-angrr: true !default;//pagination, goto last page
+$icon-angll: false !default;//pagination, goto first page
+$icon-angl: false !default;//pagination, goto previous page
+$icon-angr: false !default;//pagination, goto next page
+$icon-angrr: false !default;//pagination, goto last page
 $icon-angu: true !default;//back to top button, appears after scrolling down.
 $icon-world: true !default;//language select menu
 $icon-copy: true !default;//copy to clipboard, for code blocks.
@@ -222,6 +224,7 @@ $imgswap: true !default;//Image Swap on hover/click
 $misc: false !default;
 $grid: true !default;//Infinity Grid, column based layouts.
 $syntax: true !default;//syntax highlighting for code blocks
+$coderoundhighlight: false !default;//round corners on highlighted code blocks
 
 
 /******************************************************************************
@@ -434,6 +437,7 @@ $syntax: true !default;//syntax highlighting for code blocks
   }
 }
 @if $typography {
+  big,
   h1,
   h2,
   h3,
@@ -447,7 +451,7 @@ $syntax: true !default;//syntax highlighting for code blocks
     font-size: var(--fs);
     line-height: var(--lhh);
   }
-  h1 {
+  big,h1 {
     font-size: 2rem;
   }
   h2 {
@@ -477,7 +481,7 @@ $syntax: true !default;//syntax highlighting for code blocks
   a:visited {
     color: var(--a4);
   }
-  h1 a, h2 a, main nav a, header li > a {
+  big a, h1 a, h2 a, main nav a, header li > a {
     color: var(--f2);
     text-decoration: none;
     font-weight: var(--fh);
@@ -490,7 +494,7 @@ $syntax: true !default;//syntax highlighting for code blocks
     }
   }
   article {
-    padding-bottom: .2rem;
+    padding: 1rem 0rem;
   }
 
   // Abbreviations
@@ -536,6 +540,10 @@ $syntax: true !default;//syntax highlighting for code blocks
   }
   sup {
     top: -.5em;
+  }
+
+  details summary {
+    cursor: pointer;
   }
 
   address,
@@ -676,6 +684,8 @@ $syntax: true !default;//syntax highlighting for code blocks
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+  }
+  header > nav {
     ul {
         margin: 0;
         display: flex;
@@ -684,7 +694,6 @@ $syntax: true !default;//syntax highlighting for code blocks
         align-items: center;
     }
   }
-
   header > nav > div:nth-child(2) {//puts logo on left and menu/search on right
     margin-left: auto;
     justify-content: center;
@@ -772,6 +781,10 @@ $syntax: true !default;//syntax highlighting for code blocks
   .outp {
     padding: 0 .26rem .2rem;
   }
+  .dis {
+    color: var(--c4);
+    font-weight: var(--fh);
+  }
   .off {
     color: var(--c4);
     font-weight: var(--fh);
@@ -788,7 +801,8 @@ $syntax: true !default;//syntax highlighting for code blocks
     border-radius: var(--br);
   }
   .mode:hover, .cnav {
-    color: var(--a1);//pagination color current page
+    //pagination color current page
+    background-color: var(--c2);
   }
 
   // breakpoint makes header responsive for desktop layouts
@@ -834,6 +848,16 @@ $syntax: true !default;//syntax highlighting for code blocks
     height: 100%;
     border: 0;
     overflow: hidden;
+  }
+  .fi {//figure for images
+    display: inline-block;
+    img,video {
+      vertical-align: top;
+    }
+    figcaption {
+      padding-bottom: var(--s1);
+      text-align: center;
+    }
   }
 }
 @if $table {
@@ -922,12 +946,32 @@ $syntax: true !default;//syntax highlighting for code blocks
       margin: 0;
       // Highlighted text
       color: var(--h1);
-      mark {
-        display: block;
-        color: unset;
-        padding: 0;
-        background-color: var(--h0);
-        filter: brightness(var(--ha));
+      @if $coderoundhighlight {
+        mark {
+          border-radius: unset;
+        }
+        td:first-child {
+          mark {
+            border-top-left-radius: var(--br);
+            border-bottom-left-radius: var(--br);
+          }
+        }
+        td:last-child {
+          mark {
+            border-top-right-radius: var(--br);
+            border-bottom-right-radius: var(--br);
+          }
+      }
+      }
+    }
+    mark {
+      display: block;
+      color: unset;
+      padding: 0;
+      background-color: var(--h0);
+      filter: brightness(var(--ha));
+      @if $coderoundhighlight {
+        border-radius: var(--br);
       }
     }
     td, th, tr {
@@ -970,16 +1014,11 @@ $syntax: true !default;//syntax highlighting for code blocks
 @if $scroller {
   // https://github.com/picocss/pico
   // Wrapper to make any content responsive across all viewports
-  figure {
+  figure {//figure for scroller
     display: block;
     margin: 0;
     padding: 0;
     overflow-x: auto;
-
-    figcaption {
-      padding: var(--s1) 0;
-      color: var(--c4);
-    }
   }
 }
 @if $button {
@@ -1099,13 +1138,6 @@ $syntax: true !default;//syntax highlighting for code blocks
   div:empty {
     display: none;
   }
-  .stork-close-button {
-    display: none;
-  }
-  .stork-title p {
-    color: var(--a1);
-    font-weight: var(--fh);
-  }
   #suggestions {
     z-index: 9;
     background: var(--c1);
@@ -1146,18 +1178,18 @@ $syntax: true !default;//syntax highlighting for code blocks
   }
   .searchd {
     display: flex;
+    position: relative;
     align-items: center;
     white-space: nowrap;
   }
   .searchd > input {
     max-width: 100%;
     flex-grow: 1;
-    padding-right: 1rem;//inlayed search icon
+    padding-right: 2rem;//inlayed search icon
   }
   .searchd > button {//inlayed search icon
-    position: relative;
-    left: -1rem;
-    margin-left: -1rem;
+    position: absolute;
+    right: .5rem;
   }
   // mobile first is min-width for desktop instead of max-width for mobile
   @if map-get($breakpoints, "md") {
@@ -1192,6 +1224,7 @@ $syntax: true !default;//syntax highlighting for code blocks
     padding: .2rem 0 var(--s2) var(--s2);
     max-height: 100vh;
     overflow: auto;
+    overflow-wrap: break-word;
     a {
       color: var(--f1);
       &:hover {
@@ -1213,10 +1246,8 @@ $syntax: true !default;//syntax highlighting for code blocks
       visibility: hidden;
       overflow: hidden;
     }
-    summary {// Series: aligns item with the rest of the list, and color differently.
-      margin-left: -1em;
-      margin-bottom: .2rem;
-      color: var(--c4);
+    summary {
+      filter: brightness(.7);
     }
 
   }
@@ -1297,56 +1328,58 @@ $syntax: true !default;//syntax highlighting for code blocks
   }
 }
 @if $enable-icons {
-  @if $icon-adjust {.adjust { -webkit-mask: functions.icon(adjust, "none", 1, "%23000", $ic) ; background: var(--f2) }}//theme switcher
-  @if $icon-angl {.angl { -webkit-mask: functions.icon(angl, "%23000", 3, "none", $ic) ; background: var(--f2) }}//angle left
-  @if $icon-angll {.angll { -webkit-mask: functions.icon(angll, "%23000", 3, "none", $ic) ; background: var(--f2) }}//angle left left
-  @if $icon-angr {.angr { -webkit-mask: functions.icon(angr, "%23000", 3, "none", $ic) ; background: var(--f2) }}//angle right
-  @if $icon-angrr {.angrr { -webkit-mask: functions.icon(angrr, "%23000", 3, "none", $ic) ; background: var(--f2) }}//angle right right
-  @if $icon-angu {.angu { -webkit-mask: functions.icon(angu, "%23000", 3, "none", $ic) ; background: var(--f2) }}//angle up
-  @if $icon-world {.world { -webkit-mask: functions.icon(world, "%23000", 2, "none", $ic) ; background: var(--f2) }}//language select menu
+  @if $icon-adjust {        .adjust {             -webkit-mask: functions.icon(adjust,          $ic,1, "none", "%23000") ; background: var(--f2) }}//theme switcher
+  @if $icon-angl {          .angl {               -webkit-mask: functions.icon(angl,            $ic,3, "%23000", "none") ; background: var(--f2) }}//angle left
+  @if $icon-angll {         .angll {              -webkit-mask: functions.icon(angll,           $ic,3, "%23000", "none") ; background: var(--f2) }}//angle left left
+  @if $icon-angr {          .angr {               -webkit-mask: functions.icon(angr,            $ic,3, "%23000", "none") ; background: var(--f2) }}//angle right
+  @if $icon-angrr {         .angrr {              -webkit-mask: functions.icon(angrr,           $ic,3, "%23000", "none") ; background: var(--f2) }}//angle right right
+  @if $icon-angu {          .angu {               -webkit-mask: functions.icon(angu,            $ic,3, "%23000", "none") ; background: var(--f2) }}//angle up
+  @if $icon-world {         .world {              -webkit-mask: functions.icon(world,           $ic,2, "%23000", "none") ; background: var(--f2) }}//language select menu
   @if $icon-copy {//copy icons for code blocks
-    .copy { -webkit-mask: functions.icon(copy, "%23000", 2, "none", $ic) ; background: var(--f2) }
-    .copy.yes { -webkit-mask: functions.icon(copy-yes, "%23000", 2, "none", $ic) ; background: var(--cg) }
-    .copy.err { -webkit-mask: functions.icon(copy-err, "%23000", 2, "none", $ic) ; background: var(--cr) }
+                            .copy {               -webkit-mask: functions.icon(copy,            $ic,2, "%23000", "none") ; background: var(--f2) }
+                            .copy.yes {           -webkit-mask: functions.icon(copy-yes,        $ic,2, "%23000", "none") ; background: var(--cg) }
+                            .copy.err {           -webkit-mask: functions.icon(copy-err,        $ic,2, "%23000", "none") ; background: var(--cr) }
   }
-  @if $icon-search {.search { -webkit-mask: functions.icon(search, "%23000", 3, "none", $ic) ; background: var(--f2) }}//search
-  @if $icon-bitbucket {.bitbucket { background-image: functions.icon(bitbucket, "%2328f", 2, "none", $ic) }}
-  @if $icon-buymeacoffee {.buymeacoffee { background-image: functions.icon(buymeacoffee, "%23777", 1, "%23fd0", $ic) }}
-  @if $icon-check {.check { background-image: functions.icon(check, "%23888", 2, "none", $ic) }}
-  @if $icon-chevron {.chevron { background-image: functions.icon(chevron, "%23888", 2, "none", $ic) }}
-  @if $icon-clock {.clock { background-image: functions.icon(clock, "%23888", 2, "none", $ic) }}
-  @if $icon-codeberg {.codeberg { background-image: functions.icon(codeberg, "%23555", 2, "%23aaa", $ic) }}
-  @if $icon-date {.date { background-image: functions.icon(date, "%23888", 2, "none", $ic) }}
-  @if $icon-discord {.discord { background-image: functions.icon(discord, "none", 1, "%2356f", $ic) }}
-  @if $icon-docker {.docker { background-image: functions.icon(docker, "%2329e", 2, "none", $ic) }}
-  @if $icon-element {.element { background-image: functions.icon(element, "none", 1, "%231c8", $ic) }}
-  @if $icon-facebook {.facebook { background-image: functions.icon(facebook, "%23359", 2, "none", $ic) }}
-  @if $icon-folder {.folder { background-image: functions.icon(folder, "%23888", 2, "none", $ic) }}
-  @if $icon-github {.github { background-image: functions.icon(github, "%23888", 2, "none", $ic) }}
-  @if $icon-github-sponsor {.github-sponsor { background-image: functions.icon(github-sponsor, "%23c49", 2, "none", $ic) }}
-  @if $icon-gitlab {.gitlab { background-image: functions.icon(gitlab, "%23e62", 2, "none", $ic) }}
-  @if $icon-globe {.globe { background-image: functions.icon(globe, "%23888", 2, "none", $ic) }}
-  @if $icon-home {.home { background-image: functions.icon(home, "%23888", 2, "none", $ic) }}
-  @if $icon-instagram {.instagram { background-image: functions.icon(instagram, "%23e07", 2, "none", $ic) }}
-  @if $icon-kofi {.kofi { background-image: functions.icon(kofi, "%23888", 1.5, "%23f55", $ic) }}
-  @if $icon-linkedin {.linkedin { background-image: functions.icon(linkedin, "%2326a", 2, "none", $ic) }}
-  @if $icon-mail {.mail { background-image: functions.icon(mail, "%23888", 2, "none", $ic) }}
-  @if $icon-mastodon {.mastodon { background-image: functions.icon(mastodon, "none", 1, "%2328c", $ic) }}
-  @if $icon-matrix {.matrix { background-image: functions.icon(matrix, "%23888", 2, "none", $ic) }}
-  @if $icon-minus {.minus { background-image: functions.icon(minus, "%23888", 2, "none", $ic) }}
-  @if $icon-moon {.moon { background-image: functions.icon(moon, "%23888", 2, "none", $ic) }}
-  @if $icon-pinterest {.pinterest { background-image: functions.icon(pinterest, "%23b01", 2, "none", $ic) }}
-  @if $icon-pixelfed {.pixelfed { background-image: functions.icon(pixelfed, "%23e07", 2, "none", $ic) }}
-  @if $icon-python {.python { background-image: functions.icon(python, "%23fc1", 2, "%2326a", $ic) }}
-  @if $icon-researchgate {.researchgate { background-image: functions.icon(researchgate, "none", 2, "%230db", $ic) }}
-  @if $icon-rss {.rss { background-image: functions.icon(rss, "%23e94", 2, "none", $ic) }}
-  @if $icon-stack {.stack { background-image: functions.icon(stack, "%23e72", 2, "none", $ic) }}
-  @if $icon-sun {.sun { background-image: functions.icon(sun, "%23888", 2, "none", $ic) }}
-  @if $icon-tag {.tag { background-image: functions.icon(tag, "%23888", 2, "none", $ic) }}
-  @if $icon-twitch {.twitch { background-image: functions.icon(twitch, "%23a7f", 2, "none", $ic) }}
-  @if $icon-twitter {.twitter { background-image: functions.icon(twitter, "%232ad", 2, "none", $ic) }}
-  @if $icon-x {.x { background-image: functions.icon(x, "%23f00", 3, "none", $ic) }}
-  @if $icon-youtube {.youtube { background-image: functions.icon(youtube, "%23f00", 2, "none", $ic) }}
+  @if $icon-search {        .search {             -webkit-mask: functions.icon(search,          $ic,3, "%23000", "none") ; background: var(--f2) }}//search
+  @if $icon-bitbucket {     .bitbucket {      background-image: functions.icon(bitbucket,       $ic,2, "%2328f", "none") }}
+  @if $icon-buymeacoffee {  .buymeacoffee {   background-image: functions.icon(buymeacoffee,    $ic,0, "none", ["%23fd0","%23777"]) }}
+  @if $icon-check {         .check {          background-image: functions.icon(check,           $ic,2, "%23888", "none") }}
+  @if $icon-chevron {       .chevron {        background-image: functions.icon(chevron,         $ic,2, "%23888", "none") }}
+  @if $icon-clock {         .clock {          background-image: functions.icon(clock,           $ic,2, "%23888", "none") }}
+  @if $icon-codeberg {      .codeberg {       background-image: functions.icon(codeberg,        $ic,2, "none", ["%23aaa", "%23555"]) }}
+  @if $icon-date {          .date {           background-image: functions.icon(date,            $ic,2, "%23888", "none") }}
+  @if $icon-discord {       .discord {        background-image: functions.icon(discord,         $ic,0, "none", "%2356f") }}
+  @if $icon-docker {        .docker {         background-image: functions.icon(docker,          $ic,2, "%2329e", "none") }}
+  @if $icon-element {       .element {        background-image: functions.icon(element,         $ic,0, "none", "%231c8") }}
+  @if $icon-facebook {      .facebook {       background-image: functions.icon(facebook,        $ic,2, "%23359", "none") }}
+  @if $icon-folder {        .folder {         background-image: functions.icon(folder,          $ic,2, "%23888", "none") }}
+  @if $icon-github {        .github {         background-image: functions.icon(github,          $ic,2, "%23888", "none") }}
+  @if $icon-github-sponsor {.github-sponsor { background-image: functions.icon(github-sponsor,  $ic,2, "%23c49", "none") }}
+  @if $icon-gitlab {        .gitlab {         background-image: functions.icon(gitlab,          $ic,2, "%23e62", "none") }}
+  @if $icon-globe {         .globe {          background-image: functions.icon(globe,           $ic,2, "%23888", "none") }}
+  @if $icon-home {          .home {           background-image: functions.icon(home,            $ic,2, "%23888", "none") }}
+  @if $icon-instagram {     .instagram {      background-image: functions.icon(instagram,       $ic,2, "%23e07", "none") }}
+  @if $icon-kofi {          .kofi {           background-image: functions.icon(kofi,            $ic,1.4, "%23888", ["none", "%23f55"]) }}
+  @if $icon-linkedin {      .linkedin {       background-image: functions.icon(linkedin,        $ic,2, "%2326a", "none") }}
+  @if $icon-mail {          .mail {           background-image: functions.icon(mail,            $ic,2, "%23888", "none") }}
+  @if $icon-mastodon {      .mastodon {       background-image: functions.icon(mastodon,        $ic,0, "none", "%2328c") }}
+  @if $icon-matrix {        .matrix {         background-image: functions.icon(matrix,          $ic,2, "%23888", "none") }}
+  @if $icon-minus {         .minus {          background-image: functions.icon(minus,           $ic,2, "%23888", "none") }}
+  @if $icon-moon {          .moon {           background-image: functions.icon(moon,            $ic,2, "%23888", "none") }}
+  @if $icon-peertube {      .peertube {       background-image: functions.icon(peertube,        $ic,1, "%23444", ["%23212","%23f60","%23777"]) }}
+  @if $icon-pinterest {     .pinterest {      background-image: functions.icon(pinterest,       $ic,2, "%23b01", "none") }}
+  @if $icon-pixelfed {      .pixelfed {       background-image: functions.icon(pixelfed,        $ic,2, "%23e07", "none") }}
+  @if $icon-python {        .python {         background-image: functions.icon(python,          $ic,0, "none", ["%23fc1","%2326a"]) }}
+  @if $icon-researchgate {  .researchgate {   background-image: functions.icon(researchgate,    $ic,0, "none", "%230db") }}
+  @if $icon-rss {           .rss {            background-image: functions.icon(rss,             $ic,2, "%23e94", "none") }}
+  @if $icon-stack {         .stack {          background-image: functions.icon(stack,           $ic,2, "%23e72", "none") }}
+  @if $icon-sun {           .sun {            background-image: functions.icon(sun,             $ic,2, "%23888", "none") }}
+  @if $icon-tag {           .tag {            background-image: functions.icon(tag,             $ic,2, "%23888", "none") }}
+  @if $icon-twitch {        .twitch {         background-image: functions.icon(twitch,          $ic,2, "%23a7f", "none") }}
+  @if $icon-twitter {       .twitter {        background-image: functions.icon(twitter,         $ic,2, "%232ad", "none") }}
+  @if $icon-x {             .x {              background-image: functions.icon(x,               $ic,3, "%23f00", "none") }}
+  @if $icon-youtube {       .youtube {        background-image: functions.icon(youtube,         $ic,2, "none", "%23f00") }}
+  @if $icon-telegram {      .telegram {       background-image: functions.icon(telegram,        $ic,0, "none", "%233ad") }}
   .svg {
     width: 1.8rem;
     height: 1.8rem;
@@ -1362,6 +1395,11 @@ $syntax: true !default;//syntax highlighting for code blocks
     //overflow: hidden;
     text-align: center;
     vertical-align: middle;
+  }
+  .svgm {
+    //set minimum width and height for items with insufficient spacings
+    min-width: 24px;
+    min-height: 24px;
   }
   .fa-a:hover {
     color: var(--a3);
@@ -1395,9 +1433,21 @@ $syntax: true !default;//syntax highlighting for code blocks
   .s70 {font-size: .70em}
   .hpad {padding: 0 var(--s1)}
   .rpad {padding-right: var(--s1)}
+  .vpad {padding: var(--s1) 0}
   .tpad {padding-top: var(--s1)}
   .b {font-weight: var(--fh)}
+  .b1 {
+    video,audio,picture,img {
+      border: 1px solid var(--c4);
+    }
+  }
   .c {text-align: center}// <center> does not pass validation, use: <div class="c"></div>
+  .fl {float: left}
+  .fr {float: right}
+  .ci {
+    display: block;
+    margin: 0 auto;
+  }// center image, <center> does not pass validation, use: <img class="ci"></img>
 }
 @if $syntax {
   // Unstyled Text Color, and background color
@@ -1434,10 +1484,6 @@ $syntax: true !default;//syntax highlighting for code blocks
   .z-constant.z-other {//, .z-constant.z-character
     color: var(--h4);
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-variable.z-member {
-  //    color: var(--h3);
-  //}
   // use, crate, let, etc.
   .z-keyword {//, .z-keyword.z-operator.z-word
     color: var(--h8);
@@ -1462,10 +1508,6 @@ $syntax: true !default;//syntax highlighting for code blocks
   .z-punctuation.z-definition.z-annotation {
     color: var(--h1);
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-variable.z-other.z-dollar.z-only.z-js, .z-variable.z-other.z-object.z-dollar.z-only.z-js, .z-variable.z-type.z-dollar.z-only.z-js, .z-support.z-class.z-dollar.z-only.z-js {
-  //    color: var(--h6);
-  //}
   // const, pub, mut, Self, fn
   .z-storage {
     color: var(--h8);
@@ -1482,11 +1524,6 @@ $syntax: true !default;//syntax highlighting for code blocks
   .z-entity.z-name {//, .z-entity.z-name.z-label
     color: var(--h5);
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-entity.z-other.z-inherited-class {
-  //    color: var(--h8);
-  //    text-decoration: underline;
-  //}
   //  v1   (fn lookup(v1))
   .z-variable.z-parameter {
     color: var(--h4);
@@ -1517,25 +1554,12 @@ $syntax: true !default;//syntax highlighting for code blocks
   .z-support.z-function, .z-support.z-macro {
     color: var(--h3);
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-support.z-constant {
-  //    color: var(--h4);
-  //    font-style: italic;
-  //}
   // type: Vec, Some, str, int
   // class:  Config  ($CONF = Config::getInstance()->getAll();)
   .z-support.z-type, .z-support.z-class {
     color: var(--h8);
     font-style: italic;
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-source.z-ruby .z-variable.z-other.z-readwrite {
-  //    color: var(--h5);
-  //}
-  // superfluous, already have .z-entity.z-name.z-tag
-  //.z-source.z-css .z-entity.z-name.z-tag, .z-source.z-sass .z-entity.z-name.z-tag, .z-source.z-scss .z-entity.z-name.z-tag, .z-source.z-less .z-entity.z-name.z-tag, .z-source.z-stylus .z-entity.z-name.z-tag {
-  //    color: var(--h8);
-  //}
   // property name, eg css: font-size, text-align, etc.
   .z-support.z-type.z-property-name {
     color: var(--h8);
@@ -1544,58 +1568,4 @@ $syntax: true !default;//syntax highlighting for code blocks
   .z-key.z-json {
     color: var(--h4);
   }
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-constant.z-numeric.z-line-number.z-match {
-  //    color: var(--h8);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-entity.z-name.z-filename.z-find-in-files {
-  //    color: var(--h6);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-message.z-error {
-  //    color: var(--h3);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-string.z-other.z-link, .z-markup.z-underline.z-link {
-  //    color: var(--h7);
-  //    text-decoration: underline;
-  //    font-style: italic;
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-punctuation.z-definition.z-image {
-  //    color: var(--h5);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-meta.z-separator {
-  //    color: var(--h1);
-  //    background-color: var(--h1);
-  //    font-weight: bold;
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-markup.z-list.z-numbered.z-bullet, .z-markup.z-list .z-punctuation.z-definition.z-list_item {
-  //    color: var(--h7);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-text.z-html.z-markdown .z-markup.z-raw.z-inline {
-  //    color: var(--h4);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-text.z-html.z-markdown .z-meta.z-dummy.z-line-break {
-  //    color: var(--h1);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-markup.z-raw.z-block.z-fenced.z-markdown {
-  //    color: var(--h1);
-  //    background-color: var(--h1);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-punctuation.z-definition.z-fenced.z-markdown, .z-variable.z-language.z-fenced.z-markdown {
-  //    color: var(--h1);
-  //    background-color: var(--h1);
-  //}
-  // Figure out how to reproduce in code block otherwise don't include
-  //.z-variable.z-language.z-fenced.z-markdown {
-  //    color: var(--h1);
-  //}
 }
