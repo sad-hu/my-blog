@@ -1,5 +1,7 @@
 baseURL: /
-languageCode: zh
+# languageCode: zh
+defaultContentLanguage: zh
+hasCJKLanguage: true
 title: My New Hugo Site
 theme: 
 - "PaperMod"
